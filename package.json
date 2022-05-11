@@ -1,0 +1,39 @@
+{
+  "name": "demo-solid-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack serve --open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@inrupt/solid-client": "^1.22.0",
+    "@inrupt/solid-client-authn-browser": "^1.11.7",
+    "@inrupt/vocab-common-rdf": "^1.0.3",
+    "@ontologies/core": "^2.0.2",
+    "@ontologies/foaf": "^2.0.0",
+    "@ontologies/schema": "^2.0.0",
+    "buffer": "^6.0.3",
+    "parcel-bundler": "^1.12.5"
+  },
+  "browserslist": [
+    "last 3 and_chr versions",
+    "last 3 chrome versions",
+    "last 3 opera versions",
+    "last 3 ios_saf versions",
+    "last 3 safari versions",
+    "last 3 edge versions"
+  ],
+  "devDependencies": {
+    "css-loader": "^6.7.1",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0"
+  }
+}

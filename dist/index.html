@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Getting Started: Inrupt JavaScript Client Libraries</title>
+  <script defer src="./index.js"></script>
+  <link rel="stylesheet" href="my-demo.css" />
+</head>
+
+<body>
+  <header>
+    <h2>Message tool</h2>
+    <h3>Login</h3>
+  </header>
+  <section id="login" class="panel">
+    <div class="row">
+      <label id="labelLogin" for="btnLogin">Login into
+        <span id="solid_identity_provider"></span>:
+      </label>
+      <button name="btnLogin" id="btnLogin">Login</button>
+      <p id="labelStatus" class="labelStatus"></p>
+    </div>
+  </section>
+
+
+  </div>
+
+  <header>
+    <h3>User Profile</h3>
+  </header>
+
+  <div id="read" class="panel">
+    <div class="row">
+      <form id="readForm">
+        <label id="readlabel" for="webID">Your webID:
+        </label>
+        <input type="url" id="webID" name="webID" size="50" placeholder="Please login first" />
+        <button type="submit" name="btnRead" id="btnRead">
+          Show Profile
+        </button>
+      </form>
+    </div>
+    <dl class="display">
+      <dt>UserName:&nbsp</dt>
+      <dd id="labelFN">...not read yet...</dd>
+      <dt>Full Name:&nbsp</dt>
+      <dd id="name">...not read yet...</dd>
+      <dt>role:&nbsp</dt>
+      <dd id="role">...not read yet...</dd>
+      <dt>birth date:&nbsp</dt>
+      <dd id="bday">...not read yet...</dd>
+      <dt>friends:&nbsp</dt>
+      <dd id="friends">...not read yet...</dd>
+
+    </dl>
+  </div>
+  <img id="myImg" src="./pic.png" alt="profile picture" width="304" height="228">
+</body>
+
+<header>
+  <h3>Change profile</h3>
+</header>
+
+
+
+<div id="read" class="panel">
+  <div class="row">
+    <form id="writeForm">
+      <label id="writelabel" for="userName">New username: </label>
+      <input type="text" id="userName" name="name" size="50" placeholder="New username" />
+      <br>
+      <label id="writelabel" for="name">New full name: </label>
+      <input type="text" id="name" name="name" size="50" placeholder="New name" />
+      <br>
+      <label id="writelabel" for="role">New role: </label>
+      <input type="text" id="role" name="role" size="50" placeholder="New role" />
+      <br>
+
+      <button type="submit">
+        Change profile
+      </button>
+    </form>
+  </div>
+
+  <header>
+    <h3>Add friends</h3>
+  </header>
+
+  <div id="read" class="panel">
+    <div class="row">
+      <form id="writeForm">
+        <label id="writelabel" for="addfriend">New friend URL: </label>
+        <input type="text" id="addFriend" name="name" size="50" placeholder="friend URL" />
+        <button type="submit">
+          Add friend
+        </button>
+      </form>
+    </div>
+  
+
+</html>
