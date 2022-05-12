@@ -27,6 +27,7 @@ const session = new Session();
 const buttonLogin = document.getElementById("btnLogin");
 const writeForm = document.getElementById("writeForm");
 const readForm = document.getElementById("readForm");
+const addFriendform = document.getElementById("addFriend");
 
 // 1a. Start Login Process. Call session.login() function.
 async function login() {
@@ -89,12 +90,9 @@ async function writeProfile() {
   // VCARD.fn object is a convenience object that includes the identifier string "http://www.w3.org/2006/vcard/ns#fn".
   // As an alternative, you can pass in the "http://www.w3.org/2006/vcard/ns#fn" string instead of VCARD.fn.
 
-  console.log(document.getElementById("fullName").value)
-  console.log(document.getElementById("role").value)
 
   profile = setStringNoLocale(profile, VCARD.fn, document.getElementById("userName").value);
   profile = setStringNoLocale(profile, FOAF.name, document.getElementById("fullName").value);
-  profile = setStringNoLocale(profile, VCARD.role, document.getElementById("role").value);
 
 
   // Write back the profile to the dataset.
@@ -193,6 +191,50 @@ async function readFileFromPod(fileURL) {
   }
 }
 
+async function addFriend() {
+  console.log(document.getElementById("friendURL").value)
+
+  if (!session.info.isLoggedIn) {
+    // You must be authenticated to write.
+    document.getElementById(
+      "logInCheck"
+    ).textContent = `login first!`;
+    return;
+  }
+  const webID = session.info.webId;
+  // The WebID can contain a hash fragment (e.g. `#me`) to refer to profile data
+  // in the profile dataset. If we strip the hash, we get the URL of the full
+  // dataset.
+  const profileDocumentUrl = new URL(webID);
+  profileDocumentUrl.hash = "";
+
+  // To write to a profile, you must be authenticated. That is the role of the fetch
+  // parameter in the following call.
+  let myProfileDataset = await getSolidDataset(profileDocumentUrl.href, {
+    fetch: session.fetch
+  });
+
+  // The profile data is a "Thing" in the profile dataset.
+  let profile = getThing(myProfileDataset, webID);
+
+  // Using the name provided in text field, update the name in your profile.
+  // VCARD.fn object is a convenience object that includes the identifier string "http://www.w3.org/2006/vcard/ns#fn".
+  // As an alternative, you can pass in the "http://www.w3.org/2006/vcard/ns#fn" string instead of VCARD.fn.
+
+
+  profile = setStringNoLocale(profile, VCARD.fn, document.getElementById("userName").value);
+  profile = setStringNoLocale(profile, FOAF.name, document.getElementById("fullName").value);
+
+
+  // Write back the profile to the dataset.
+  myProfileDataset = setThing(myProfileDataset, profile);
+
+  // Write back the dataset to your Pod.
+  await saveSolidDatasetAt(profileDocumentUrl.href, myProfileDataset, {
+    fetch: session.fetch
+  });
+}
+
 buttonLogin.onclick = function () {
   login();
 };
@@ -200,6 +242,11 @@ buttonLogin.onclick = function () {
 writeForm.addEventListener("submit", (event) => {
   event.preventDefault();
   writeProfile();
+});
+
+addFriendForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  addFriend();
 });
 
 readForm.addEventListener("submit", (event) => {
