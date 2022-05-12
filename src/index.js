@@ -60,12 +60,6 @@ handleRedirectAfterLogin();
 
 // 2. Write to profile
 async function writeProfile() {
-  const userName = document.getElementById("userName").value;
-  const name = document.getElementById("name").value;
-  const role = document.getElementById("role").value;
-  console.log("name" + name)
-  console.log("role" + role)
-
 
   if (!session.info.isLoggedIn) {
     // You must be authenticated to write.
@@ -94,9 +88,13 @@ async function writeProfile() {
   // Using the name provided in text field, update the name in your profile.
   // VCARD.fn object is a convenience object that includes the identifier string "http://www.w3.org/2006/vcard/ns#fn".
   // As an alternative, you can pass in the "http://www.w3.org/2006/vcard/ns#fn" string instead of VCARD.fn.
-  profile = setStringNoLocale(profile, VCARD.fn, userName);
-  profile = setStringNoLocale(profile, FOAF.name, 'testName5');
-  profile = setStringNoLocale(profile, VCARD.role, role);
+
+  console.log(document.getElementById("fullName").value)
+  console.log(document.getElementById("role").value)
+
+  profile = setStringNoLocale(profile, VCARD.fn, document.getElementById("userName").value);
+  profile = setStringNoLocale(profile, FOAF.name, document.getElementById("fullName").value);
+  profile = setStringNoLocale(profile, VCARD.role, document.getElementById("role").value);
 
 
   // Write back the profile to the dataset.
@@ -107,14 +105,8 @@ async function writeProfile() {
     fetch: session.fetch
   });
 
-  // Update the page with the retrieved values.
-  document.getElementById(
-    "labelWriteStatus"
-  ).textContent = `Wrote [${name}] as name successfully!`;
-  document.getElementById("labelWriteStatus").setAttribute("role", "alert");
-  document.getElementById(
-    "labelFN"
-  ).textContent = `...click the 'Read Profile' button to to see what the name might be now...?!`;
+  readProfile()
+
 }
 
 // 3. Read profile
@@ -147,8 +139,6 @@ async function readProfile() {
   try {
     if (session.info.isLoggedIn) {
       myDataset = await getSolidDataset(profileDocumentUrl.href, { fetch: session.fetch });
-      console.log("loggedin")
-      console.log(myDataset)
 
       readFileFromPod(`https://tdrave.solidcommunity.net/profile/Image_1652173540900.png`);
 
